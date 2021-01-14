@@ -1,0 +1,45 @@
+.component {
+  padding: 0 1.5rem;
+
+  .form {
+    background: white;
+    padding: 2em 2em;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3em;
+
+    > h1 {
+      margin-top: 0;
+      margin-bottom: 1em;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    > form {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        margin-bottom: 1em;
+      }
+
+      label {
+        display: inline-block;
+        font-size: 0.85rem;
+        margin-bottom: 0.5em;
+      }
+
+      button {
+        height: 50px;
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--defaultColor);
+  }
+}

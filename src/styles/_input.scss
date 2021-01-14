@@ -1,0 +1,16 @@
+input {
+  padding: 0.5em 0.75em;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  color: var(--inputColor);
+
+  &:focus {
+    border: 2px solid lighten($primaryColor, 25%);
+  }
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}

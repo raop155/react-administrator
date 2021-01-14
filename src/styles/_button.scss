@@ -1,0 +1,36 @@
+button {
+  border: none;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.button {
+  padding: 0.5em 0.75em;
+  background: var(--defaultColor);
+  outline: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+
+  &:hover {
+    background: darken($defaultColor, 5%);
+  }
+
+  &:active {
+    background: darken($defaultColor, 10%);
+  }
+
+  &.primary {
+    background: var(--primaryColor);
+    color: var(--whiteColor);
+
+    &:hover {
+      background: darken($primaryColor, 5%);
+    }
+
+    &:active {
+      background: darken($primaryColor, 10%);
+    }
+  }
+}
