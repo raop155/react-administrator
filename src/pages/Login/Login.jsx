@@ -1,12 +1,11 @@
 import React from 'react';
-import { Header, Form } from '../../components/Login';
+import { Form } from './Form';
 
 const Login = () => {
   return (
-    <div>
-      <Header />
+    <main id='login'>
       <Form />
-    </div>
+    </main>
   );
 };
 

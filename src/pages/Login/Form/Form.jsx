@@ -29,7 +29,6 @@ const Form = () => {
           </div>
         </form>
       </div>
-      <p>Todos los derechos reservados © 2020 — PxGroup</p>
     </div>
   );
 };

@@ -6,19 +6,17 @@ button {
 
 .button {
   padding: 0.5em 0.75em;
-  background: var(--defaultColor);
+  background: var(--defaultBtnColor);
   outline: none;
   cursor: pointer;
-  display: block;
-  width: 100%;
   border-radius: 4px;
 
   &:hover {
-    background: darken($defaultColor, 5%);
+    background: darken($defaultBtnColor, 5%);
   }
 
   &:active {
-    background: darken($defaultColor, 10%);
+    background: darken($defaultBtnColor, 10%);
   }
 
   &.primary {
