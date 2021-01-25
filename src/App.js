@@ -2,8 +2,9 @@ import { Switch, Route } from 'react-router-dom';
 import { Header, Footer } from './components';
 import { Login, Dashboard } from './pages';
 import Test from './pages/Test';
+import ProtectedRoute from './routes/ProtectedRoute';
 
-function App() {
+const App = () => {
   return (
     <div className='App'>
       <Header />
@@ -11,16 +12,16 @@ function App() {
         <Route path='/' exact>
           <Login />
         </Route>
-        <Route path='/dashboard'>
+        <ProtectedRoute path='/dashboard'>
           <Dashboard />
-        </Route>
+        </ProtectedRoute>
         <Route path='/test'>
-          <Test />
+          <Test name='Ricardo' />
         </Route>
       </Switch>
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

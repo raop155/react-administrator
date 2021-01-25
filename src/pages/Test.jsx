@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import socket from 'socket';
 
-const Test = () => {
+const Test = (props) => {
   const addClient = () => {
     console.log('addClient');
     socket.emit('client-id', {
@@ -30,6 +30,7 @@ const Test = () => {
 
   return (
     <div>
+      <div>This are the pros: {JSON.stringify(props)}</div>
       <button onClick={addClient}> Add New Client </button>
       <button onClick={() => ChangeMode(true)}> Change Live Mode </button>
       <button onClick={() => ChangeMode(false)}> Change No Live Mode </button>

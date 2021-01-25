@@ -1,0 +1,15 @@
+.component {
+  .user {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    font-size: 0.75rem;
+
+    button {
+      font-size: 0.75rem;
+      margin-left: 0.5em;
+    }
+  }
+}
