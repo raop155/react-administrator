@@ -31,4 +31,30 @@ button {
       background: darken($primaryColor, 10%);
     }
   }
+
+  &.success {
+    background: var(--successColor);
+    color: var(--whiteColor);
+
+    &:hover {
+      background: darken($successColor, 5%);
+    }
+
+    &:active {
+      background: darken($successColor, 10%);
+    }
+  }
+
+  &.danger {
+    background: var(--dangerColor);
+    color: var(--whiteColor);
+
+    &:hover {
+      background: darken($dangerColor, 5%);
+    }
+
+    &:active {
+      background: darken($dangerColor, 10%);
+    }
+  }
 }

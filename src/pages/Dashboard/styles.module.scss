@@ -1,4 +1,18 @@
 .component {
+  .status {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    font-size: 0.75rem;
+
+    button {
+      font-size: 0.75rem;
+      margin-left: 0.5em;
+    }
+  }
+
   .user {
     display: flex;
     align-items: center;

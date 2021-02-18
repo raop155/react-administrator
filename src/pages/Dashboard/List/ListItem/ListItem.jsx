@@ -2,23 +2,37 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 
 const ListItem = ({
-  index,
-  socketId,
   branchId,
+  description,
   deviceId,
-  location,
-  campaign,
-  url,
-  screen,
+  id,
   liveMode,
+  liveModeMN,
+  liveModePWD,
+  liveModeUSER,
+  meetingStatus,
+  mn,
+  pwd,
+  room,
+  roomId,
+  screen,
+  socketId,
+  status,
+  userId,
   changeLiveMode,
-  changeScreen,
+  changeScreen
 }) => {
   const [loading, setLoading] = useState({ liveMode: false, screen: false });
 
   const handleChangeLiveMode = () => {
     if (!socketId) return;
-    changeLiveMode({ socketId, status: !liveMode });
+    changeLiveMode({
+      socketId, status: !liveMode, options: {
+        liveModeMN: "MN",
+        liveModePWD: "PWD",
+        liveModeUSER: "USER"
+      }
+    });
     setLoading({ ...loading, liveMode: true });
   };
 
@@ -38,27 +52,16 @@ const ListItem = ({
 
   return (
     <div className={`${styles.component} ${!!socketId && styles['component--active']}`}>
-      {/* <div className={styles.orderNumber}>
-        <div>{index + 1}</div>
-      </div> */}
       <div>
         <div className={`${styles.circle} ${socketId && styles['circle--active']}`}></div>
       </div>
-      {/* <div>
-        <div>
-          {branchId} {deviceId}
-        </div>
-      </div> */}
       <div>
-        <div>{location}</div>
+        <div>{description}</div>
       </div>
-      {/* <div>
-        <div>{campaign}</div>
-      </div> */}
       <div>
         <div className={styles.break}>
-          <a href={url} target='_blank' rel='noreferrer'>
-            {url}
+          <a href={room} target='_blank' rel='noreferrer'>
+            {room}
           </a>
         </div>
       </div>
@@ -72,8 +75,8 @@ const ListItem = ({
               {loading.liveMode ? '...' : liveMode ? 'ON' : 'OFF'}
             </button>
           ) : (
-            <div>-</div>
-          )}
+              <div>-</div>
+            )}
         </div>
       </div>
       <div>
@@ -86,8 +89,8 @@ const ListItem = ({
               {loading.screen ? '...' : screen === 'home' ? 'Llamar' : 'Colgar'}
             </button>
           ) : (
-            <div>-</div>
-          )}
+              <div>-</div>
+            )}
         </div>
       </div>
     </div>

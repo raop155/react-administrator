@@ -20,53 +20,34 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('user_id', inputs.user);
-    formData.append('password', inputs.password);
-    formData.append('project_id', process.env.REACT_APP_PROJECT);
+    const LOGIN_URL = `${process.env.REACT_APP_HOST}/pxgp_videocall/api/users/login.php?user=${inputs.user}&password=${inputs.password}`
 
-    fetch(`${process.env.REACT_APP_HOST}/pxgp_auth/php/user/getUser.php`, {
-      method: 'POST',
-      body: formData,
-    })
+    fetch(LOGIN_URL)
       .then(function (res) {
         return res.json();
       })
       .then(function (data) {
         console.log(data);
-        if (data.data.id) {
-          const userId = data.data.id;
-          const userName = data.data.name;
-          sessionStorage.setItem('userId', userId);
-          sessionStorage.setItem('userName', userName);
-          insertLoginLog(userId);
+        const user = data[0];
+        if (user.id) {
+          sessionStorage.setItem('userId', user.id);
+          sessionStorage.setItem('userName', user.name);
+          sessionStorage.setItem('userLastName', user.lastName);
+          sessionStorage.setItem('userDocument', user.userDocument);
+          sessionStorage.setItem('roomId', user.roomId);
+          sessionStorage.setItem('roomStatus', user.roomStatus);
+
           history.push('/dashboard');
         } else {
           throw new Error('User or password invalid');
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
         setError(err.message);
       });
   };
 
-  const insertLoginLog = (userId) => {
-    const formData = new FormData();
-    formData.append('userId', userId);
-    formData.append('type', 'LOGIN');
-
-    fetch(`${process.env.REACT_APP_HOST}/pxgp_auth/php/login/createLogin.php`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (data) {
-        console.log(data);
-      });
-  };
 
   return (
     <div className={`${styles.component} container`}>

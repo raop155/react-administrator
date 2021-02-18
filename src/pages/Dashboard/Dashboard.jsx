@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
   const history = useHistory();
+  const [status, setStatus] = useState(() => sessionStorage.getItem('roomStatus') === "1");
   const [clients, setClients] = useState([]);
   const changeLiveMode = ({ socketId, status }) => {
     console.log('changeLiveMode', socketId, status);
@@ -22,29 +23,33 @@ const Dashboard = () => {
   };
 
   const logOut = () => {
-    const userId = sessionStorage.getItem('userId');
-    insertLogoutLog(userId);
+    sessionStorage.clear()
     history.push('/');
   };
 
-  const insertLogoutLog = (userId) => {
-    const formData = new FormData();
-    formData.append('userId', userId);
-    formData.append('type', 'LOGOUT');
+  const changeStatus = () => {
+    const SET_ROOM_STATUS_URL = `${process.env.REACT_APP_HOST}/pxgp_videocall/api/rooms/update.php`
 
-    fetch(`${process.env.REACT_APP_HOST}/pxgp_auth/php/login/createLogin.php`, {
-      method: 'POST',
-      body: formData,
+    console.log("status", status);
+    console.log("send>", status ? 0 : 1);
+
+    const params = JSON.stringify({
+      id: sessionStorage.getItem("roomId"),
+      status: status ? 0 : 1
     })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (data) {
-        console.log(data);
-      });
 
-    sessionStorage.removeItem('userId');
-  };
+    fetch(SET_ROOM_STATUS_URL, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: params
+    })
+      .then(res => res.json())
+      .then(res => console.log(res))
+
+    setStatus(prev => !prev);
+  }
 
   useEffect(() => {
     socket.emit('clients');
@@ -60,10 +65,15 @@ const Dashboard = () => {
 
   return (
     <main id='dashboard' className={styles.component}>
+      <div className={styles.status}>
+        <button className={`button ${status ? "success" : "danger"}`} onClick={changeStatus}>
+          {status ? "Online" : "Busy"}
+        </button>
+      </div>
       <div className={styles.user}>
         <div>{getUserName()}</div>
         <button className='button primary' onClick={logOut}>
-          Cerrar sesión
+          &times;
         </button>
       </div>
       <List clients={clients} changeLiveMode={changeLiveMode} changeScreen={changeScreen} />
