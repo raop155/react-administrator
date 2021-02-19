@@ -8,9 +8,9 @@ const Dashboard = () => {
   const history = useHistory();
   const [status, setStatus] = useState(() => sessionStorage.getItem('roomStatus') === "1");
   const [clients, setClients] = useState([]);
-  const changeLiveMode = ({ socketId, status }) => {
-    console.log('changeLiveMode', socketId, status);
-    socket.emit('change-live-mode', { socketId, status });
+  const changeLiveMode = ({ socketId, status, options }) => {
+    console.log('changeLiveMode', socketId, status, options);
+    socket.emit('change-live-mode', { socketId, status, options });
   };
 
   const changeScreen = ({ socketId, command }) => {
@@ -29,9 +29,6 @@ const Dashboard = () => {
 
   const changeStatus = () => {
     const SET_ROOM_STATUS_URL = `${process.env.REACT_APP_HOST}/pxgp_videocall/api/rooms/update.php`
-
-    console.log("status", status);
-    console.log("send>", status ? 0 : 1);
 
     const params = JSON.stringify({
       id: sessionStorage.getItem("roomId"),

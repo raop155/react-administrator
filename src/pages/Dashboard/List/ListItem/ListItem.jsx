@@ -27,10 +27,12 @@ const ListItem = ({
   const handleChangeLiveMode = () => {
     if (!socketId) return;
     changeLiveMode({
-      socketId, status: !liveMode, options: {
-        liveModeMN: "MN",
-        liveModePWD: "PWD",
-        liveModeUSER: "USER"
+      socketId,
+      status: !liveMode,
+      options: {
+        liveModeMN: mn,
+        liveModePWD: pwd,
+        liveModeUSER: sessionStorage.getItem("userId")
       }
     });
     setLoading({ ...loading, liveMode: true });
@@ -41,6 +43,10 @@ const ListItem = ({
     changeScreen({ socketId, command: screen === 'home' ? 'videocall' : 'home' });
     setLoading({ ...loading, screen: true });
   };
+
+  const isLiveModeWithMe = () => {
+    return liveModeUSER === sessionStorage.getItem("userId");
+  }
 
   useEffect(() => {
     setLoading((prev) => ({ ...prev, liveMode: false }));
@@ -72,7 +78,7 @@ const ListItem = ({
               onClick={handleChangeLiveMode}
               className={liveMode ? `button primary` : `button `}
             >
-              {loading.liveMode ? '...' : liveMode ? 'ON' : 'OFF'}
+              {loading.liveMode ? '...' : liveMode ? `ON ${isLiveModeWithMe() ? "w/ ME" : ""}` : `OFF`}
             </button>
           ) : (
               <div>-</div>
